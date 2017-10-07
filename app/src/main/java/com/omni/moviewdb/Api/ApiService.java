@@ -16,4 +16,7 @@ public interface ApiService {
 //    @FormUrlEncoded
     @GET(AppConfig.POPULAR_ENDPOINT)
     Call<MovieResponse> getPopularMovies(@Query("api_key") String apiKey);
+
+    @GET(AppConfig.TOP_RATED_ENDPOINT)
+    Call<MovieResponse> getTopRatedMovies(@Query("api_key") String apiKey);
 }

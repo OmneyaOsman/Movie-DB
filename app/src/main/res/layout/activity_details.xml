@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.omni.moviewdb.MainActivity">
+    tools:context="com.omni.moviewdb.DetailsActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/toolbar_details"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -20,13 +20,14 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <FrameLayout
-        android:id="@+id/main_container"
+    <fragment
+        android:id="@+id/fragment2"
+        android:name="com.omni.moviewdb.fragments.MovieProfilePageFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        tools:layout="@layout/movie_profile"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        />
 
 
 </android.support.design.widget.CoordinatorLayout>
-
-

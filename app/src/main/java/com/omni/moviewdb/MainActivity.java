@@ -1,38 +1,56 @@
 package com.omni.moviewdb;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
-import com.omni.moviewdb.Api.ApiClient;
-import com.omni.moviewdb.Api.ApiService;
-import com.omni.moviewdb.model.MovieResponse;
-import com.omni.moviewdb.utils.AppConfig;
+import com.omni.moviewdb.fragments.Homefragment;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ApiService  apiService = ApiClient.getClient().create(ApiService.class);
+        ButterKnife.bind(this);
 
-        Call<MovieResponse> getMovies = apiService.getPopularMovies(AppConfig.API_KEY);
-        getMovies.enqueue(new Callback<MovieResponse>() {
-            @Override
-            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
-                Toast.makeText(MainActivity.this, "get it", Toast.LENGTH_SHORT).show();
-            }
+        toolbar.setTitle(R.string.app_name);
+        setSupportActionBar(toolbar);
 
-            @Override
-            public void onFailure(Call<MovieResponse> call, Throwable t) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_container , new Homefragment()).commit();
 
-            }
-        });
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.settings_menu , menu);
+
+        return true;
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        switch (id){
+            case R.id.action_settings:
+                startActivity(new Intent(this , SettingsActivity.class));
+
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

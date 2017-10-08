@@ -39,7 +39,6 @@ import retrofit2.Response;
 public class Homefragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener , ImageAdapter.OnItemClickListener {
 
 
-    private Unbinder unbinder ;
     private  Call<MovieResponse> getMovies ;
 
     @BindView(R.id.recycler_view)
@@ -62,7 +61,7 @@ public class Homefragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.home_fragment ,container , false);
-        unbinder = ButterKnife.bind(this , rootView);
+        Unbinder unbinder = ButterKnife.bind(this, rootView);
 
         GridLayoutManager manager = new GridLayoutManager(getActivity() , 2 );
 
@@ -78,7 +77,7 @@ public class Homefragment extends BaseFragment implements SwipeRefreshLayout.OnR
         super.onViewCreated(view, savedInstanceState);
 
 
-swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setOnRefreshListener(this);
 
     }
 
@@ -107,11 +106,10 @@ swipeRefreshLayout.setOnRefreshListener(this);
 
     private String getSortKey() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String sort = sharedPreferences.getString(
+
+        return sharedPreferences.getString(
                 getString(R.string.pref_sort_by_key),
                 getString(R.string.pref_sort_by_default_value));
-
-        return sort;
     }
 
     private void senMoviesRequest(Call<MovieResponse> getMovies , final int refresh){
@@ -125,9 +123,10 @@ swipeRefreshLayout.setOnRefreshListener(this);
                 progressBar.setVisibility(View.GONE);
                 if (response.body() != null) {
 
-                    ImageAdapter adapter = new ImageAdapter(getActivity(),
+                    @SuppressWarnings("ConstantConditions") ImageAdapter adapter = new ImageAdapter(getActivity(),
                             getPostersList((ArrayList<Movie>) response.body().getMovies()), Homefragment.this);
                     recyclerView.setAdapter(adapter);
+                    //noinspection ConstantConditions
                     movies = response.body().getMovies();
 
                 }
@@ -201,10 +200,6 @@ swipeRefreshLayout.setOnRefreshListener(this);
 
     @Override
     public void setOnItemClickListener(int position) {
-
-        
-        //// TODO: 07/10/2017  open activity with details of item 
-        Toast.makeText(getActivity(), "Position is" +position, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity() , DetailsActivity.class);
         intent.putExtra("movie",movies.get(position));
         startActivity(intent);

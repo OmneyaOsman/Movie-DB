@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/image_item_list"
-        android:layout_width="185dp"
-        android:layout_height="280dp"
+        android:layout_width="@dimen/image_width"
+        android:layout_height="@dimen/image_height"
         android:scaleType="centerCrop"
         tools:src="@mipmap/ic_launcher"
         android:contentDescription="@string/movie_poster"/>

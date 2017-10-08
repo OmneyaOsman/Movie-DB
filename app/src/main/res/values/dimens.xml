@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="spacing">0dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="padding_8">8dp</dimen>
+    <dimen name="image_width">185dp</dimen>
+    <dimen name="image_height">280dp</dimen>
 </resources>
